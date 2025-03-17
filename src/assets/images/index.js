@@ -1,0 +1,7 @@
+export {default as Logo}  from  './logo_digital.png'
+export {default as DefaultUser}  from  './default_user.png'
+export {default as DefaultProduct}  from  './default-product.png'
+export {default as NewLabel}  from  './new-label.png'
+export {default as TrendingLabel}  from  './trending-label.png'
+export {default as payment}  from  './payment.svg'
+export {default as AiIcon} from './AI-icon.png'
