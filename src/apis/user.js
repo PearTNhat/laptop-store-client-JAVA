@@ -69,7 +69,7 @@ const getCurrentUser = async ({ token }) => {
         Authorization: `Bearer ${token}`,
       },
     }
-    const { data } = await http.get("user-ssss", config);
+    const { data } = await http.get("user/info", config);
     return data;
   } catch (error) {
     if (error.response && error.response.data) {

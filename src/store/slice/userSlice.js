@@ -21,7 +21,6 @@ const userSlice = createSlice({
             state.userData = action.payload.userData
         },
         setUserData: (state, action) => {
-            console.log('setUserData', action.payload)
             state.userData = action.payload.userData
         },
         logout: (state) => {
@@ -41,7 +40,6 @@ const userSlice = createSlice({
             return state
         })
         builder.addCase(fetchCurrentUser.rejected, (state) => {
-            console.log('eror')
             state.isLoading = false
             state.isError = true
             state.isLoggedIn = true
