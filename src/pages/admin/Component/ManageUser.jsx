@@ -140,6 +140,7 @@ function ManageUser() {
     >
       {usersData?.map((user, index) => {
         let isEdit = edit == user._id;
+        console.log(user);
         return (
           <tr
             key={user._id}
@@ -221,11 +222,11 @@ function ManageUser() {
                       onClick={() =>
                         handleUpdateBlock({
                           userId: user._id,
-                          isBlocked: !user.isBlocked,
+                          isBlocked: !user.blocked,
                         })
                       }
                     >
-                      {user?.isBlocked ? (
+                      {user?.blocked ? (
                         <MdBlock
                           className=" text-[18px]"
                           title="Nhấn để mở khóa tài khoản"

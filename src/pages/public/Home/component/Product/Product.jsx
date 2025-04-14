@@ -24,7 +24,7 @@ function Product({
   totalRating,
   isNew,
   isTrending,
-  onClickLink
+  onClickLink,
 }) {
   const {
     userData: { wishlist, carts },
@@ -44,14 +44,30 @@ function Product({
     label.img = TrendingLabel;
     label.text = "Trending";
   }
-  
+
   const handleAddWishList = async (e) => {
     e.stopPropagation();
-    await apiUpdateWishlist({ accessToken, product: pid });
-    Toast.fire({
-      icon: "success",
-      title: "Thêm vào danh sách yêu thích thành công",
-    });
+    try {
+      const res = await apiUpdateWishlist({ accessToken, product: pid });
+      if (res?.success) {
+        Toast.fire({
+          icon: "success",
+          title: `${
+            isLiked ? "Xóa sản phẩm trong" : "Thêm sản phẩm vào"
+          } danh sách yêu thích thành công `,
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Thêm vào danh sách yêu thích thất bại",
+        });
+      }
+    } catch (error) {
+      Toast.fire({
+        icon: "error",
+        title: "Thêm vào danh sách yêu thích thất bại",
+      });
+    }
     dispatch(fetchCurrentUser({ token: accessToken }));
   };
   const handleAddToCart = async (e) => {
@@ -70,6 +86,7 @@ function Product({
       quantity: 1,
     };
     const response = await apiUpdateCart({ accessToken, body });
+
     if (response?.success) {
       Toast.fire({
         icon: "success",
@@ -90,7 +107,11 @@ function Product({
       }
     >
       <div className="mb-3 relative">
-        <Link to={`${path.PUBLIC}${slug}`} className="block" onClick={onClickLink}>
+        <Link
+          to={`${path.PUBLIC}${slug}`}
+          className="block"
+          onClick={onClickLink}
+        >
           <div className="css-w-img ">
             <div className="css-img-item">
               <img
