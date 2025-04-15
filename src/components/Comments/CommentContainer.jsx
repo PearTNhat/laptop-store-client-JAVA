@@ -16,7 +16,6 @@ import {
 import { Toast } from "~/utils/alert";
 import Comment from "./Comment";
 import YourRating from "./YourRating";
-import { socket } from "~/socket/connect";
 
 function CommentContainer({
   title,
@@ -76,7 +75,6 @@ function CommentContainer({
         replyOnUser,
       });
       if (res.success) {
-        socket.emit("handle-comment");
         Toast.fire({
           icon: "success",
           title: "Bình luận thành công",
@@ -102,7 +100,6 @@ function CommentContainer({
       token: accessToken,
     });
     if (res.success) {
-      socket.emit("handle-comment");
       Toast.fire({
         icon: "success",
         title: "Câp nhật bình luận thành công",
@@ -119,7 +116,6 @@ function CommentContainer({
   const handleDeleteComment = async ({ commentId }) => {
     const res = await apiDeleteComment({ commentId, token: accessToken });
     if (res.success) {
-      socket.emit("handle-comment");
       Toast.fire({
         icon: "success",
         title: "Xóa bình luận thành công",
@@ -129,7 +125,6 @@ function CommentContainer({
   };
   const handleLikeComment = async ({ commentId }) => {
     await apiLikeComment({ commentId, token: accessToken });
-    socket.emit("handle-comment");
     setFetchAgain((prev) => !prev);
   };
   const handleClickShowModalRating = useCallback(async () => {

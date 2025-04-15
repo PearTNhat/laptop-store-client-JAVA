@@ -28,10 +28,15 @@ function Checkout() {
     )
   );
   const handleCheckout = async (data) => {
+    const products = userData.carts.map((cart) => ({
+      product: { _id: cart.product._id },
+      quantity: cart.quantity,
+      color: cart.color,
+    }));
     const body = {
-      products: userData.carts,
+      ...data,
+      products,
       total,
-      ...data
     };
     const response = await apiCreateOrder({
       accessToken,

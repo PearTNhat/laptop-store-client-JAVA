@@ -19,7 +19,6 @@ import Swal from "sweetalert2";
 import { Toast } from "~/utils/alert";
 import { fetchCurrentUser } from "~/store/action/user";
 import DetailInfo from "./component/DetailInfo";
-import { connectSocket, disconnectSocket, socket } from "~/socket/connect";
 function DetailProduct() {
   const { slug } = useParams();
   const descRef = useRef(null);
@@ -120,17 +119,8 @@ function DetailProduct() {
     // console.log('fetchAgain',fetchAgain)
   }, [fetchAgain]);
   useEffect(() => {
-    connectSocket();
     getProductDetail(slug);
-    socket.on("receive-comment", () => {
-      setFetchAgain((prev) => {
-        return !prev
-      });
-    });
     window.scrollTo(0, 0);
-    return () => {
-      disconnectSocket();
-    };
   }, []);
 
   return (

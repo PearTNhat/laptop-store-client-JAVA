@@ -33,6 +33,7 @@ function Cart() {
               const color = item.product?.colors?.find(
                 (color) => color.color === item.color
               );
+
               return (
                 color && (
                   <li
